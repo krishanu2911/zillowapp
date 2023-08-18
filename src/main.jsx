@@ -5,9 +5,9 @@ import "./index.css";
 import { ResultProvider } from "./context/resultContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <ResultProvider>
-    <App />
-  </ResultProvider>
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <ResultProvider>
+      <App />
+    </ResultProvider>
+  </React.StrictMode>
 );

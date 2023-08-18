@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { data } from "../dump";
 import { useResult } from "../../context/resultContext";
 
 export const SearchResult = () => {
