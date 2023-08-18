@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import styles from "./heroSection.module.css";
-import { useEffect } from "react";
 import axios from "axios";
+import { useResult } from "../../context/resultContext";
+import { Spinner } from "../spinner/spinner";
 
 export const HeroSection = () => {
   const [address, setAddress] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { setResult } = useResult();
   const searchUserAddress = async () => {
+    setLoading(true);
     const options = {
       method: "GET",
       url: "https://zillow56.p.rapidapi.com/search",
       params: {
-        location: "555 Byron St APT 305, Palo Alto, CA 94301",
+        location: address,
       },
       headers: {
         "X-RapidAPI-Key": "02f713baa7mshfdd0501cc1da63dp157545jsn068e9a5e31b3",
@@ -20,16 +24,24 @@ export const HeroSection = () => {
 
     try {
       const response = await axios.request(options);
-      console.log(response);
+      setResult(response.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
+      setAddress("");
     }
   };
   const inputHandler = (value) => {
     setAddress(value);
   };
   const searchHandler = () => {
-    
+    searchUserAddress();
+  };
+  const keyPressHandler = (keyName) => {
+    if(keyName === "Enter"){
+        searchUserAddress();
+    }
   };
 
   return (
@@ -50,16 +62,22 @@ export const HeroSection = () => {
         <div className={`${styles.inputBg} md:w-[75%] w-full p-4 flex`}>
           <input
             value={address}
-            onKeyDown={(e) => {console.log(e.key)}}
+            onKeyDown={(e) => {
+              keyPressHandler(e.key);
+            }}
             onChange={(e) => inputHandler(e.target.value)}
             placeholder="Enter an address"
             className="bg-transparent outline-none w-full"
           />
-          <img
-            onClick={searchHandler}
-            className="cursor-pointer"
-            src="/search.svg"
-          />
+          {loading ? (
+            <Spinner />
+          ) : (
+            <img
+              onClick={searchHandler}
+              className="cursor-pointer"
+              src="/search.svg"
+            />
+          )}
         </div>
       </div>
     </div>
