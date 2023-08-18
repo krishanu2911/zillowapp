@@ -1,9 +1,13 @@
 import './App.css'
+import { Header , HeroSection } from "./components"
 
 function App() {
-
+  console.log("app")
   return (
-    <div className='text-red-500'>Zillow</div>
+    <div>
+      <Header />
+      <HeroSection />
+    </div>
   )
 }
 

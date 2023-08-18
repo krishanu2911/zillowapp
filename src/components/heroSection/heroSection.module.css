@@ -1,0 +1,23 @@
+.heroBackground {
+  min-height: 25rem;
+  background-image: url("/backgroundHero.svg");
+  background-size: cover;
+  position: relative;
+  isolation: isolate;
+}
+.heroBackground::after {
+  content: "";
+  position: absolute;
+  background: white;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+}
+.inputBg {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
