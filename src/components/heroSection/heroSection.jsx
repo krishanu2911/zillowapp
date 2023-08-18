@@ -29,7 +29,7 @@ export const HeroSection = () => {
     setAddress(value);
   };
   const searchHandler = () => {
-    console.log("hello");
+    
   };
 
   return (
@@ -50,6 +50,7 @@ export const HeroSection = () => {
         <div className={`${styles.inputBg} md:w-[75%] w-full p-4 flex`}>
           <input
             value={address}
+            onKeyDown={(e) => {console.log(e.key)}}
             onChange={(e) => inputHandler(e.target.value)}
             placeholder="Enter an address"
             className="bg-transparent outline-none w-full"

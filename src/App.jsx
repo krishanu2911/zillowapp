@@ -1,14 +1,15 @@
-import './App.css'
-import { Header , HeroSection } from "./components"
+import "./App.css";
+import { Header, HeroSection, SearchResult } from "./components";
 
 function App() {
-  console.log("app")
+
   return (
     <div>
       <Header />
       <HeroSection />
+      <SearchResult />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

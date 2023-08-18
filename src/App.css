@@ -1,3 +1,13 @@
-:root {
-
+::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    width: 5px;
+    background-color: transparent;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 999px;
 }
