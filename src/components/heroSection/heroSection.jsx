@@ -3,9 +3,13 @@ import styles from "./heroSection.module.css";
 import axios from "axios";
 import { useResult } from "../../context/resultContext";
 import { Spinner } from "../spinner/spinner";
+import { validateAddress } from "../../utils/addressValidate";
+import { Toast } from "../toast/toast";
 
 export const HeroSection = () => {
+  const initialErrorState = { state: false , message: "" };
   const [address, setAddress] = useState("");
+  const [errorAddress, setErrorAddress] = useState(initialErrorState);
   const [loading, setLoading] = useState(false);
   const { setResult } = useResult();
   const searchUserAddress = async () => {
@@ -36,16 +40,27 @@ export const HeroSection = () => {
     setAddress(value);
   };
   const searchHandler = () => {
-    searchUserAddress();
+    if (validateAddress(address)) {
+      searchUserAddress();
+    } else {
+      setErrorAddress({ state: true, message: "Please enter valid address." });
+    }
   };
   const keyPressHandler = (keyName) => {
-    if(keyName === "Enter"){
+    if (keyName === "Enter") {
+      if (validateAddress(address)) {
         searchUserAddress();
+      } else {
+        setErrorAddress({
+          state: true,
+          message: "Please enter valid address.",
+        });
+      }
     }
   };
 
   return (
-    <div className=" flex justify-center px-10">
+    <div className="flex justify-center px-10">
       <div
         className={`${styles.heroBackground} w-full rounded-3xl flex justify-center flex-col md:items-start items-center md:px-20 px-10`}
       >
@@ -79,6 +94,11 @@ export const HeroSection = () => {
             />
           )}
         </div>
+        <Toast
+          message={errorAddress.message}
+          flag={errorAddress.state}
+          setterFunc={setErrorAddress}
+        />
       </div>
     </div>
   );
